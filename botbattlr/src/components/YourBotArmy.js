@@ -1,31 +1,24 @@
 import React from 'react';
+import BotList from './BotList';
+import { SimpleGrid, Heading, Center, Box } from '@chakra-ui/react';
 
-function YourBotArmy(props) {
-  const { selectedBots, removeFromArmy, dischargeBot } = props;
-
+function YourBotArmy({ army, handleRelease }) {
   return (
-    <>
-      <h2>Your Bot Army</h2>
-      <div className="bots-container">
-        {selectedBots.map(bot => (
-          <div key={bot.id} className="bot-card" onClick={() => {
-            // Replace YourBotArmy with BotSpecs
-          }}>
-            <img src={bot.avatar_url} alt="Bot Avatar" />
-            <h3>{bot.name}</h3>
-            <p>{bot.bot_class}</p>
-            <button onClick={(e) => {
-              e.stopPropagation();
-              removeFromArmy(bot.id);
-            }}>Release</button>
-            <button className="delete-btn" onClick={(e) => {
-              e.stopPropagation();
-              dischargeBot(bot.id);
-            }}>X</button>
-          </div>
+    <div>
+      {army.length > 0 && (
+        <Heading>
+          <Center>Your Bot Army</Center>
+        </Heading>
+      )}
+
+      <SimpleGrid spacing={10} minChildWidth="200px"  backgroundColor="#b3c931" >
+        {army.map((bot) => (
+          <Box key={bot.id} w="258px" padding="10px" textAlign="center">
+            <BotList bot={bot} handleEnlist={handleRelease}  isInArmy={true}/>
+          </Box>
         ))}
-      </div>
-    </>
+      </SimpleGrid>
+    </div>
   );
 }
 
